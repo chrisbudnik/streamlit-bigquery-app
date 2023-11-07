@@ -13,6 +13,8 @@ from elements import (
     ui_element_file_download_process,
     ui_element_abgroups_process
 )
+from query import QueryConstructor
+
 
 # Page config
 st.set_page_config(
@@ -60,6 +62,7 @@ with st.sidebar.title("Navigation"):
 # Authentication Token Input
     input_token = st.text_input('Input token (auth)', type="password")
 
+
 # Select Boxes for Country and Last Number Metric in Columns
 top_values = ui_element_top_selectors()
 
@@ -67,14 +70,19 @@ top_values = ui_element_top_selectors()
 main_parameter_toggle = st.checkbox('Main params')
 if main_parameter_toggle:
     main_values = ui_element_main_selectors()
-    st.write(main_values)
 
 # Advanced Params with Select Boxes in a Grid
 advanced_parameter_toggle = st.checkbox('Advanced params')
 if advanced_parameter_toggle:
     advanced_values = ui_element_advanced_selectors()
-    st.write(advanced_values) 
 
+
+# initialize query constructor
+constructor = QueryConstructor()
+all_params = top_values | main_values | advanced_values
+
+# Summarize query requirements
+requirements = {k: v for k, v in all_params.items() if v != 'not included' and v is not False}
 
 
 data = pd.DataFrame({
@@ -102,10 +110,6 @@ st.table(data)
 prepare_lists_toggle = st.toggle('Move to the next steps: Prepare and export lists')
 if prepare_lists_toggle:
     st.write('Content related to preparing lists would be here.')
-
-    # Summarize query requirements
-    all_params = top_values | main_values | advanced_values
-    requirements = {k: v for k, v in all_params.items() if v != 'not included'}
 
     # Fill in campaign details form
     ui_element_campaign_details_form(requirements)

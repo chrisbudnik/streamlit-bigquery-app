@@ -7,7 +7,7 @@ from google.cloud.bigquery import ScalarQueryParameter, QueryJobConfig
 @dataclass
 class QueryParam:
     name: str
-    type: Literal["STRING", "INT64", "FLOAT64", "DATE"] = "STRING" 
+    type: Literal["STRING", "INT64", "FLOAT64", "DATE", "BOOL"] = "STRING" 
     value: Optional[Any] = None
      
 
@@ -17,9 +17,10 @@ class QueryConstructor:
         Initialize the ParameterizedQuery with a list of default parameters.
         """
         # Convert the list of DefaultParam into a dictionary for easy access
-        self.country = QueryParam(name="country"),
-        self.region = QueryParam(name="region"),
-        self.country = QueryParam(name="calculated_segment"),
+        self.country = QueryParam(name="country", value="USA"),
+        self.region = QueryParam(name="region", value="West"),
+        self.segment = QueryParam(name="segment"),
+        self.extended_group = QueryParam(name="extended_group", type="BOOL", value=False),
 
     
     
