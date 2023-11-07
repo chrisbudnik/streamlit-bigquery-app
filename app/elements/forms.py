@@ -1,6 +1,6 @@
 import streamlit as st
 
-def ui_element_campaign_details_form():
+def ui_element_campaign_details_form(requirements):
     """Campaign Details Form."""
 
     st.header("Create a Promotion Form")
@@ -17,12 +17,9 @@ def ui_element_campaign_details_form():
     description = st.text_area("Enter the Description of the Promotion")
 
     # Requirements are generated automatically based on promotion type
-    requirements = {
-        'Email': "Must follow email content guidelines.",
-        'Campaign': "Must adhere to campaign creation policies.",
-        'SMS': "Should comply with SMS regulations and character limits."
-    }
-    st.code(f"'Requirements for {promotion_type}: {requirements[promotion_type]}'")
+
+    st.write(f"Requirements (auto-generated):")
+    st.write(requirements)
 
 
     # Submit button
