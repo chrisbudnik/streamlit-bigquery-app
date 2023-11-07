@@ -3,7 +3,7 @@ import time
 import streamlit as st
 import pandas as pd
 
-from exceptions import MicropromoAppError
+from exceptions import AppError
 
 # Page config
 st.set_page_config(
