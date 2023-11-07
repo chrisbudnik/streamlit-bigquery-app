@@ -26,7 +26,6 @@ def ui_element_abgroups_process():
     return split_type, split_value
 
 
-
 def ui_element_upload_data_process():
     """Upload Data Process."""
     st.write("One click and data is uploaded to both destinations.")
@@ -52,10 +51,6 @@ def ui_element_upload_data_process():
         with col2:
             st.link_button("Check files in BigQuery", url="https://console.cloud.google.com/bigquery")
 
-    
-def ui_element_check_resource_process():
-    """Check Resource Process."""
-    pass
 
 def ui_element_file_download_process():
     """File Download Process."""

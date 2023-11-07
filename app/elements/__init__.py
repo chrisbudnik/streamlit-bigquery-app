@@ -7,7 +7,6 @@ from .selectors import (
 from .process import (
     ui_element_upload_data_process,
     ui_element_file_download_process,
-    ui_element_check_resource_process,
     ui_element_abgroups_process
 )
 
