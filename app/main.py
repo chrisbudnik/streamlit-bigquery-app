@@ -10,7 +10,6 @@ from elements import (
     ui_element_top_selectors, 
     ui_element_upload_data_process, 
     ui_element_campaign_details_form,
-    ui_element_check_resource_process,
     ui_element_file_download_process,
     ui_element_abgroups_process
 )
@@ -56,8 +55,10 @@ if not check_password():
 st.title("Automation Tool")
 st.write('Description... ')
 
+# introduce sidebar
+with st.sidebar.title("Navigation"):
 # Authentication Token Input
-input_token = st.text_input('Input token (auth)', type="password")
+    input_token = st.text_input('Input token (auth)', type="password")
 
 # Select Boxes for Country and Last Number Metric in Columns
 top_values = ui_element_top_selectors()
@@ -102,10 +103,12 @@ prepare_lists_toggle = st.toggle('Move to the next steps: Prepare and export lis
 if prepare_lists_toggle:
     st.write('Content related to preparing lists would be here.')
 
-
+    # Summarize query requirements
+    all_params = top_values | main_values | advanced_values
+    requirements = {k: v for k, v in all_params.items() if v != 'not included'}
 
     # Fill in campaign details form
-    ui_element_campaign_details_form()
+    ui_element_campaign_details_form(requirements)
 
     # Data Upload Process
     st.header("Data upload to Storage")
