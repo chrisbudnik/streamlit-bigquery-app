@@ -29,3 +29,5 @@ def ui_element_campaign_details_form():
     if st.button("Submit Promotion"):
         # Process form data here (placeholder)
         st.success("Promotion Submitted Successfully!")
+
+    return name, promotion_type, description

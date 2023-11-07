@@ -12,6 +12,7 @@ from elements import (
     ui_element_campaign_details_form,
     ui_element_check_resource_process,
     ui_element_file_download_process,
+    ui_element_abgroups_process
 )
 
 # Page config
@@ -101,11 +102,23 @@ prepare_lists_toggle = st.toggle('Move to the next steps: Prepare and export lis
 if prepare_lists_toggle:
     st.write('Content related to preparing lists would be here.')
 
+
+
     # Fill in campaign details form
     ui_element_campaign_details_form()
 
+    # Data Upload Process
+    st.header("Data upload to Storage")
+    st.write('In this part data is uploaded to BigQuery and Cloud Storage. \
+             First step is to choose the ab groups splits. Usually the best option \
+             is to stick to defaults: classic split and 10% test size.')
+
+    # Define ab groups splits
+    ui_element_abgroups_process()
+
     # Button to upload data to BigQuery and Cloud Storage with status updates
     ui_element_upload_data_process()
-
-    # Button to download file with status updates
+    
+    # Option to download data into files
     ui_element_file_download_process()
+
