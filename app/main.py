@@ -4,6 +4,7 @@ import streamlit as st
 import pandas as pd
 
 from exceptions import AppError
+from elements import ui_element_main_selectors, ui_element_advanced_selectors
 
 # Page config
 st.set_page_config(
@@ -43,8 +44,8 @@ if not check_password():
 
 
 # Main Streamlit app starts here
-st.title("Micropromo Automation Tool")
-st.write('Description... (about automating SMS (promotional actions))')
+st.title("Automation Tool")
+st.write('Description... ')
 
 # Authentication Token Input
 input_token = st.text_input('Input token (auth)', type="password")
@@ -57,29 +58,16 @@ with col2:
     last_number_metric = st.selectbox('Region', ['Metric 1', 'Metric 2', 'Metric 3'])
 
 # RPM Params with Select Boxes in a Grid
-main_parameter_toggle = st.checkbox('RFM params - if toggle is on show other selectors')
+main_parameter_toggle = st.checkbox('Main params - if toggle is on show other selectors')
 if main_parameter_toggle:
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        select1 = st.selectbox('segment', ['not included', 'newcomers', 'promising', 'champions'])
-        select4 = st.selectbox('product', ['not included', 'Option 1', 'Option 2', 'Option 3'])
-    with col2:
-        select2 = st.selectbox('top_category', ['not included', 'Option 1', 'Option 2', 'Option 3'])
-        select5 = st.selectbox('only_promo', ['not included', 'Option 1', 'Option 2', 'Option 3'])
-    with col3:
-        select3 = st.selectbox('top_subcategory', ['not included', 'Option 1', 'Option 2', 'Option 3'])
-        select6 = st.selectbox('regular_buyer', ['not included', 'Option 1', 'Option 2', 'Option 3'])
+    main_values = ui_element_main_selectors()
+    st.write(main_values)
 
 # Advanced Params with Select Boxes in a Grid
 advanced_parameter_toggle = st.checkbox('Advanced params - if toggle is on show other selectors')
 if advanced_parameter_toggle:
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        toggle1 = st.checkbox('Toggle 1')
-    with col2:
-        toggle2 = st.checkbox('Toggle 2')
-    with col3:
-        toggle3 = st.checkbox('Toggle 3')
+    advanced_values = ui_element_advanced_selectors()
+    st.write(advanced_values) 
 
 data = pd.DataFrame({
         'country': [],
