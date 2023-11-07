@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 def ui_element_top_selectors():
     col1, col2 = st.columns(2)
     with col1:
@@ -7,7 +8,7 @@ def ui_element_top_selectors():
     with col2:
         region = st.multiselect('Region', ['Metric 1', 'Metric 2', 'Metric 3'])
 
-    return country, region
+    return {"country": country, "region": region}
 
 def ui_element_main_selectors():
     """Main parameters for the app layout."""
@@ -23,7 +24,8 @@ def ui_element_main_selectors():
         select3 = st.selectbox('top_subcategory', ['not included', 'Option 1', 'Option 2', 'Option 3'])
         select6 = st.selectbox('regular_buyer', ['not included', 'Option 1', 'Option 2', 'Option 3'])
 
-    return select1, select2, select3, select4, select5, select6
+    return {"segment": select1, "product": select4, "top_category": select2, 
+            "only_promo": select5, "top_subcategory": select3, "regular_buyer": select6}
 
 
 def ui_element_advanced_selectors():
@@ -35,4 +37,5 @@ def ui_element_advanced_selectors():
     with col3:
         toggle3 = st.toggle('Exclude low risk customers')
     
-    return toggle1, toggle2, toggle3
+    return {"Extended group": toggle1, "Exclude high risk customers": toggle2, 
+            "Exclude low risk customers": toggle3}
