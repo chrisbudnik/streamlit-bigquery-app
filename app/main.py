@@ -4,7 +4,15 @@ import streamlit as st
 import pandas as pd
 
 from exceptions import AppError
-from elements import ui_element_main_selectors, ui_element_advanced_selectors, ui_element_top_selectors
+from elements import (
+    ui_element_main_selectors, 
+    ui_element_advanced_selectors, 
+    ui_element_top_selectors, 
+    ui_element_upload_data_process, 
+    ui_element_campaign_details_form,
+    ui_element_check_resource_process,
+    ui_element_file_download_process,
+)
 
 # Page config
 st.set_page_config(
@@ -89,31 +97,15 @@ if st.button('Estimate group size & costs.'):
 st.table(data)
 
 # Prepare lists toggle and content display
-prepare_lists_toggle = st.toggle('Prepare lists - if true (toggle button) show content below')
+prepare_lists_toggle = st.toggle('Move to the next steps: Prepare and export lists')
 if prepare_lists_toggle:
     st.write('Content related to preparing lists would be here.')
 
-    # Button to upload data to BigQuery and Cloud Storage
-    if st.button('Upload data to BigQuery and Cloud Storage'):
-        with st.status("Downloading data...", expanded=True) as status:
-            st.write("Searching for data...")
-            time.sleep(2)
-            st.write("Found URL.")
-            time.sleep(1)
-            st.write("Downloading data...")
-            time.sleep(1)
+    # Fill in campaign details form
+    ui_element_campaign_details_form()
 
-        status.update(label="Download complete!", state="complete", expanded=False)
-        st.success('Data uploaded successfuly to BQ and Storage')
-        col1, col2 = st.columns(2)
-        with col1:
-            st.link_button("Check files in google storage", url="https://console.cloud.google.com/storage/browser/")
-        with col2:
-            st.link_button("Check files in BigQuery", url="https://console.cloud.google.com/bigquery")
+    # Button to upload data to BigQuery and Cloud Storage with status updates
+    ui_element_upload_data_process()
 
-
-
-# Show message on button click
-if st.button('Show message'):
-    st.success('Message displayed!')
-
+    # Button to download file with status updates
+    ui_element_file_download_process()
