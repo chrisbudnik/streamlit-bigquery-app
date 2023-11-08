@@ -3,7 +3,7 @@ from typing import Iterator, List, Any
 import google.cloud.storage as gcs
 from google.cloud import bigquery
 from google.cloud.bigquery import ScalarQueryParameter, QueryJobConfig
-from helpers import Config
+
 
 
 bigquery_client = bigquery.Client()
