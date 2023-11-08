@@ -12,9 +12,5 @@ class QueryConfig:
         "exclude_high_risk_customers": "BOOL",
         "exclude_low_risk_customers": "BOOL",
     }
-    BASE_QUERY = """
-        SELECT
-        *
-        FROM `data-to-insights.ecommerce.all_sessions_raw`
-        WHERE 1 = 1
-        """
+    BASE_SQL = "SELECT * FROM `data-to-insights.ecommerce.all_sessions_raw` \
+        \nWHERE"
