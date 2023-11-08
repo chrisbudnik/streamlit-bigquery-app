@@ -52,7 +52,7 @@ def ui_element_upload_data_process():
             st.link_button("Check files in BigQuery", url="https://console.cloud.google.com/bigquery")
 
 
-def ui_element_file_download_process():
+def ui_element_file_download_process(data):
     """File Download Process."""
 
     try:
@@ -83,4 +83,6 @@ def ui_element_file_download_process():
             with col2:
                 # Advanced features field for export to CSV in the first column
                 export_csv = st.radio("Export format", ['.CSV', '.XLSX'])
+            
+            st.download_button("Download data", data="data", file_name="data.csv", mime="text/csv")
 

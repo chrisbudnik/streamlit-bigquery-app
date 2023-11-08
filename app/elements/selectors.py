@@ -37,5 +37,5 @@ def ui_element_advanced_selectors():
     with col3:
         toggle3 = st.toggle('Exclude low risk customers')
     
-    return {"Extended group": toggle1, "Exclude high risk customers": toggle2, 
-            "Exclude low risk customers": toggle3}
+    return {"extended_group": toggle1, "exclude_high_risk_customers": toggle2, 
+            "exclude_low_risk_customers": toggle3}
