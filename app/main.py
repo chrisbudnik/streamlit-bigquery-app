@@ -13,7 +13,7 @@ from elements import (
     ui_element_file_download_process,
     ui_element_abgroups_process
 )
-from query import QueryConstructor
+from query_framework import QueryConstructor, QueryParam, QueryConfig
 
 
 # Page config
@@ -66,19 +66,21 @@ with st.sidebar.title("Navigation"):
 # Select Boxes for Country and Last Number Metric in Columns
 top_values = ui_element_top_selectors()
 
-# RPM Params with Select Boxes in a Grid
+
+# Main Params with Select Boxes in a Grid
+main_values = {}
 main_parameter_toggle = st.checkbox('Main params')
 if main_parameter_toggle:
     main_values = ui_element_main_selectors()
 
 # Advanced Params with Select Boxes in a Grid
+advanced_values = {}    
 advanced_parameter_toggle = st.checkbox('Advanced params')
 if advanced_parameter_toggle:
     advanced_values = ui_element_advanced_selectors()
 
 
 # initialize query constructor
-constructor = QueryConstructor()
 all_params = top_values | main_values | advanced_values
 
 # Summarize query requirements
@@ -106,6 +108,17 @@ if st.button('Estimate group size & costs.'):
 
 st.table(data)
 
+# Show SQL query
+if st.toggle('Optional: Show SQL query'):
+    st.write('Test dynamic SQL creation')
+
+    constructor = QueryConstructor(requirements=requirements)
+    sql, job_config = constructor.construct_query()
+    st.code(sql, language='sql')
+
+    
+    st.write('No requirements yet.')
+
 # Prepare lists toggle and content display
 prepare_lists_toggle = st.toggle('Move to the next steps: Prepare and export lists')
 if prepare_lists_toggle:
@@ -127,5 +140,5 @@ if prepare_lists_toggle:
     ui_element_upload_data_process()
     
     # Option to download data into files
-    ui_element_file_download_process()
+    ui_element_file_download_process(data)
 
