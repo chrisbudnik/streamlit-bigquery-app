@@ -84,8 +84,6 @@ if advanced_parameter_toggle:
 all_params = top_values | main_values | advanced_values
 
 # Summarize query requirements
-requirements = {k: v for k, v in all_params.items() if v != 'not included' and v is not False}
-
 
 data = pd.DataFrame({
         'country': [],
@@ -108,16 +106,14 @@ if st.button('Estimate group size & costs.'):
 
 st.table(data)
 
+constructor = QueryConstructor(params=all_params)
+sql, job_config = constructor.construct_query()
+
 # Show SQL query
 if st.toggle('Optional: Show SQL query'):
     st.write('Test dynamic SQL creation')
-
-    constructor = QueryConstructor(requirements=requirements)
-    sql, job_config = constructor.construct_query()
-    st.code(sql, language='sql')
-
+    st.code(sql, language='sql') 
     
-    st.write('No requirements yet.')
 
 # Prepare lists toggle and content display
 prepare_lists_toggle = st.toggle('Move to the next steps: Prepare and export lists')
@@ -125,6 +121,7 @@ if prepare_lists_toggle:
     st.write('Content related to preparing lists would be here.')
 
     # Fill in campaign details form
+    requirements = constructor.get_requirements()
     ui_element_campaign_details_form(requirements)
 
     # Data Upload Process
