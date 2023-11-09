@@ -5,10 +5,11 @@ def ui_element_top_selectors():
     col1, col2 = st.columns(2)
     with col1:
         country = st.multiselect('Country', ['Country 1', 'Country 2', 'Country 3'])
+        date = st.date_input('Date', value=None, min_value=None, max_value=None, key=None)
     with col2:
         region = st.multiselect('Region', ['Metric 1', 'Metric 2', 'Metric 3'])
 
-    return {"country": country, "region": region}
+    return {"country": country, "region": region, "date": date}
 
 def ui_element_main_selectors():
     """Main parameters for the app layout."""
