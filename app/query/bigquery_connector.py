@@ -1,9 +1,10 @@
 from typing import Iterator, List, Any
+import pandas as pd
 from google.cloud import bigquery
 from google.cloud.bigquery import QueryJobConfig
 
 
-def run_parameterized_query(sql: str, job_config: QueryJobConfig) -> Iterator[List[Any]]:
+def fetch_query_results(sql: str, job_config: QueryJobConfig) -> pd.DataFrame:
     """
     Run a parameterized query on BigQuery.
     """
