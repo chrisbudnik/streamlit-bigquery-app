@@ -13,8 +13,15 @@ class QueryConfig:
         "exclude_high_risk_customers": "BOOL",
         "exclude_low_risk_customers": "BOOL",
     }
+
     DEFAULT_VALUES_TO_IGNORE = [
         'not included', False, None, []
         ]
+    
+    DEFAULT_WHERE_OPERATORS = {
+        "STRING": "=",
+        "DATE": "<=",
+        "BOOL": "IS",
+    }
     
     BASE_SQL = "SELECT * FROM `data-to-insights.ecommerce.all_sessions_raw` \nWHERE"
