@@ -28,8 +28,6 @@ def grant_access(func):
             json=details
         )
 
-        # if token correct resposne contains: {"permission_granted": "TOKEN_ACCEPTED"}
-        # if token is wrong response contains: {"permission_denied": "TOKEN_DENIED"}
         if AuthConfig.VALIDATION_ON:
             response = r.json()
             access = response.get("permission_granted", False) if r.status_code == 200 else False
