@@ -2,11 +2,18 @@ import requests
 from functools import wraps
 import streamlit as st
 from .auth_config import AuthConfig 
+from .permission_roles import AuthPermissionRole
 
 
 def grant_access(func):
     @wraps(func)
-    def wrapper(token: str, details: dict, *args, **kwargs): 
+    def wrapper(
+        token: str, 
+        details: dict, 
+        role: AuthPermissionRole,
+        *args, **kwargs
+    ) -> bool: 
+
         """
         Verifies user credentials and allows access to the specified resource upon 
         successful validation of the user's token. The Authentication Service returns 
@@ -19,7 +26,7 @@ def grant_access(func):
         headers = {
             "user_token": token,
             "service_name": AuthConfig.SERVICE_NAME,
-            "permission_name": "access"
+            "permission_name": role.value
         }
 
         r = requests.post(
